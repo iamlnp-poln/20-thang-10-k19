@@ -583,19 +583,12 @@
     setTimeout(() => spawnPetalRain(45), 500);
   }
 
-  // Trigger ambush on first click/touch anywhere on screen
+  // Trigger ambush strictly when user taps/clicks on screen
   const introCurtain = document.getElementById('intro-curtain');
   if (introCurtain) {
     introCurtain.addEventListener('click', () => executeAmbush(true));
     introCurtain.addEventListener('touchstart', () => executeAmbush(true), { passive: true });
   }
-
-  // Auto-ambush fallback if no user action after 2.5s
-  setTimeout(() => {
-    if (!ambushTriggered) {
-      executeAmbush(false);
-    }
-  }, 2500);
 
   /* ==========================================================================
      9. TAP ANYWHERE INTERACTIVITY (Pháo hoa trái tim mọi lúc chạm)
