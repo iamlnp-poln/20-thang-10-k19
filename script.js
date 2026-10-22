@@ -430,7 +430,7 @@
     if (!container) return;
 
     container.innerHTML = '';
-    const numColumns = 5;
+    const numColumns = 6;
     const heartIcons = [' 💖', ' 💕', ' 🌸', ' ✨', ' 💗'];
 
     // Combine student names with occasional badges
@@ -462,10 +462,25 @@
       // Double the items for seamless infinite 50% translation
       const doubled = colItems.concat(colItems);
 
-      doubled.forEach((itemText) => {
+      doubled.forEach((itemText, idx) => {
         const span = document.createElement('span');
         span.className = 'bg-name-item';
         span.textContent = itemText;
+
+        // Bố cục so le lộn xộn: độ lệch ngang (X offset), độ nghiêng nhẹ và khoảng cách ngẫu nhiên
+        const offsetX = Math.sin(idx * 1.8 + c * 2.1) * 32 + ((idx % 3) - 1) * 16;
+        const rotateDeg = Math.sin(idx * 2.7 + c) * 4;
+        span.style.transform = `translateX(${offsetX.toFixed(1)}px) rotate(${rotateDeg.toFixed(1)}deg)`;
+
+        // Phân cấp thị giác lấp lánh tự nhiên
+        if (idx % 3 === 0) {
+          span.style.opacity = '0.9';
+        } else if (idx % 2 === 0) {
+          span.style.opacity = '0.7';
+        } else {
+          span.style.opacity = '0.8';
+        }
+
         colDiv.appendChild(span);
       });
 
