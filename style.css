@@ -1,0 +1,564 @@
+/* ==========================================================================
+   20/10 K19 TÂM LÝ HỌC • THE COSMIC ROSE ARCHIVE
+   Style: Minimalist Luxury, Serif Typography, Text-On-The-Ground, Cosmic Glow
+   ========================================================================== */
+
+:root {
+  /* Palette: Deep Velvet Noir Rose, Glowing Magenta Nebulae, Champagne Gold */
+  --bg-cosmic-dark: #12050B;
+  --bg-cosmic-mid: #250B17;
+  --bg-nebula-glow: rgba(226, 92, 130, 0.25);
+
+  --text-pure: #FFF7F9;
+  --text-champagne: #F5E2C8;
+  --text-muted: #B88E9B;
+
+  --rose-glow: #FF6584;
+  --rose-soft: #F9A8B8;
+  --rose-deep: #A82046;
+
+  --gold-accent: #E5C378;
+  --gold-glow: rgba(229, 196, 120, 0.4);
+
+  --font-serif-title: "Playfair Display", "Cormorant Garamond", Georgia, serif;
+  --font-serif-body: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", sans-serif;
+
+  --transition-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Base Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100%;
+  background-color: var(--bg-cosmic-dark);
+  color: var(--text-pure);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: 
+    radial-gradient(circle at 50% 30%, rgba(184, 45, 87, 0.35) 0%, transparent 60%),
+    radial-gradient(circle at 20% 80%, rgba(226, 92, 130, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 80% 85%, rgba(197, 160, 89, 0.15) 0%, transparent 50%),
+    linear-gradient(180deg, var(--bg-cosmic-dark) 0%, #1D0713 50%, var(--bg-cosmic-dark) 100%);
+  background-attachment: fixed;
+  position: relative;
+  touch-action: manipulation;
+}
+
+/* Khoá cuộn màn hình khi đang ở màn hình mở quà */
+body.locked-curtain {
+  overflow: hidden;
+  height: 100vh;
+  height: 100dvh;
+}
+
+/* Particle Canvas Layer (Fireworks & Confetti) - Cố định 100vh viewport */
+#galaxy-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  width: 100dvw;
+  height: 100dvh;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   Screen Shake Rumble & Mega Earthquake
+   Áp dụng riêng lên #stage để KHÔNG biến body thành containing-block gây giật canvas
+   ========================================================================== */
+#stage {
+  position: relative;
+  z-index: 2;
+  transition: transform 0.3s var(--transition-smooth);
+}
+
+#stage.shake-rumble {
+  animation: screenRumble 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+#stage.shake-mega {
+  animation: screenEarthquake 0.75s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes screenRumble {
+  10%, 90% { transform: translate3d(-3px, 2px, 0) rotate(-0.5deg); }
+  20%, 80% { transform: translate3d(4px, -3px, 0) rotate(0.6deg); }
+  30%, 50%, 70% { transform: translate3d(-6px, 5px, 0) rotate(-1deg); }
+  40%, 60% { transform: translate3d(6px, -5px, 0) rotate(1deg); }
+}
+
+@keyframes screenEarthquake {
+  0% { transform: translate(0, 0) scale(1); }
+  10% { transform: translate(-10px, 8px) rotate(-1.5deg) scale(1.03); }
+  20% { transform: translate(12px, -10px) rotate(1.8deg) scale(0.98); }
+  30% { transform: translate(-15px, 12px) rotate(-2deg) scale(1.04); }
+  40% { transform: translate(14px, -12px) rotate(2deg) scale(0.97); }
+  50% { transform: translate(-10px, 8px) rotate(-1deg) scale(1.02); }
+  60% { transform: translate(8px, -8px) rotate(1deg); }
+  70% { transform: translate(-5px, 5px); }
+  80% { transform: translate(3px, -3px); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+/* ==========================================================================
+   Sound Dock (Góc trên bên phải)
+   ========================================================================== */
+.sound-dock {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 100;
+}
+
+.sound-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(35, 11, 23, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 101, 132, 0.35);
+  color: var(--text-pure);
+  padding: 0.55rem 1.15rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.sound-pill:hover {
+  background: rgba(184, 45, 87, 0.6);
+  border-color: var(--rose-glow);
+  box-shadow: 0 0 20px rgba(255, 101, 132, 0.5);
+  transform: translateY(-1px);
+}
+
+.sound-pill.muted {
+  opacity: 0.5;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* ==========================================================================
+   INTRO AMBUSH CURTAIN (ÚP SỌT BẰNG HIỆU ỨNG KHI CHẠM)
+   ========================================================================== */
+.intro-curtain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  width: 100dvw;
+  height: 100dvh;
+  z-index: 999;
+  background: radial-gradient(circle at center, #260A18 0%, #0D0308 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  cursor: pointer;
+  transition: opacity 0.7s var(--transition-smooth), visibility 0.7s;
+}
+
+.intro-curtain.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.curtain-content {
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  animation: pulseGentle 2.5s infinite ease-in-out;
+}
+
+.curtain-tag {
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  font-weight: 600;
+  color: var(--gold-accent);
+  text-transform: uppercase;
+}
+
+.curtain-seal {
+  font-family: var(--font-serif-title);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--rose-soft);
+  border: 1px solid rgba(249, 168, 184, 0.3);
+  padding: 0.4rem 1.4rem;
+  border-radius: 9999px;
+  background: rgba(255, 101, 132, 0.1);
+  box-shadow: 0 0 25px rgba(255, 101, 132, 0.2);
+}
+
+.curtain-title {
+  font-family: var(--font-serif-title);
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text-pure);
+}
+
+.curtain-instruction {
+  font-size: 0.96rem;
+  color: var(--text-champagne);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-top: 0.5rem;
+}
+
+.curtain-pulse-hint {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid var(--rose-glow);
+  box-shadow: 0 0 20px var(--rose-glow);
+  animation: rippleGlow 1.8s infinite;
+}
+
+@keyframes rippleGlow {
+  0% { transform: scale(0.8); opacity: 0.8; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+@keyframes pulseGentle {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+/* ==========================================================================
+   MAIN STAGE: TEXT ON THE GROUND (NO CARDS)
+   ========================================================================== */
+.stage-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: clamp(3rem, 7vw, 5rem) clamp(1.5rem, 5vw, 3rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.stage-header {
+  margin-bottom: 2.5rem;
+}
+
+.edition-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  color: var(--gold-accent);
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(229, 196, 120, 0.35);
+  padding-bottom: 0.35rem;
+}
+
+.stage-main-title {
+  font-family: var(--font-serif-title);
+  font-size: clamp(2.4rem, 6.5vw, 4.4rem);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--text-pure);
+}
+
+.italic-serif {
+  font-family: var(--font-serif-body);
+  font-style: italic;
+  font-weight: 500;
+}
+
+.text-rose-glow {
+  color: var(--rose-soft);
+  text-shadow: 0 0 30px rgba(255, 101, 132, 0.6);
+}
+
+/* ==========================================================================
+   Direct Wish Typography (Floating on the Ground)
+   ========================================================================== */
+.direct-wish-body {
+  position: relative;
+  width: 100%;
+  margin-bottom: 3.5rem;
+  text-align: left;
+}
+
+.decor-quote-mark {
+  position: absolute;
+  top: -2.5rem;
+  left: -2rem;
+  font-family: var(--font-serif-title);
+  font-size: 8rem;
+  color: rgba(255, 101, 132, 0.12);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.wish-paragraph {
+  font-family: var(--font-serif-body);
+  font-size: clamp(1.2rem, 2.5vw, 1.55rem);
+  line-height: 1.75;
+  color: var(--text-pure);
+  margin-bottom: 1.6rem;
+  font-weight: 400;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.wish-paragraph.lead {
+  font-size: clamp(1.35rem, 2.8vw, 1.75rem);
+  color: var(--text-champagne);
+  font-style: italic;
+}
+
+.wish-paragraph.highlight {
+  color: var(--rose-soft);
+  font-weight: 600;
+}
+
+/* Làm nổi bật sến sến, lãng mạn lấp lánh - TUYỆT ĐỐI KHÔNG ĐÓNG KHUNG */
+.romantic-highlight {
+  display: inline;
+  font-family: var(--font-serif-body);
+  font-style: italic;
+  font-weight: 600;
+  background: linear-gradient(120deg, #FF94B2 0%, #FFE2B7 40%, #FF7597 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 14px rgba(255, 117, 151, 0.65));
+  text-decoration: underline wavy rgba(255, 148, 178, 0.65);
+  text-underline-offset: 6px;
+  animation: romanticShimmer 3.5s ease infinite;
+}
+
+@keyframes romanticShimmer {
+  0%, 100% {
+    background-position: 0% 50%;
+    filter: drop-shadow(0 0 10px rgba(255, 117, 151, 0.5));
+  }
+  50% {
+    background-position: 100% 50%;
+    filter: drop-shadow(0 0 18px rgba(255, 226, 183, 0.85));
+  }
+}
+
+.wish-signature {
+  margin-top: 2.5rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid rgba(255, 101, 132, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.sign-name {
+  font-family: var(--font-serif-title);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--gold-accent);
+  letter-spacing: 0.05em;
+}
+
+.sign-sub {
+  font-family: var(--font-serif-body);
+  font-style: italic;
+  font-size: 0.96rem;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   Action Pills Row (Direct Ambush & Fun Triggers)
+   ========================================================================== */
+.stage-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.btn-action-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(45, 14, 29, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 101, 132, 0.35);
+  color: var(--text-pure);
+  padding: 0.85rem 1.6rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  transition: all 0.25s var(--transition-smooth);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  touch-action: manipulation;
+}
+
+.btn-action-pill:hover {
+  transform: translateY(-2px);
+  border-color: var(--rose-glow);
+  box-shadow: 0 0 25px rgba(255, 101, 132, 0.5);
+  background: rgba(184, 45, 87, 0.6);
+}
+
+.btn-action-pill:active {
+  transform: translateY(1px);
+}
+
+.btn-primary-blast {
+  background: linear-gradient(135deg, #FF6584 0%, #B82046 100%);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 30px rgba(255, 101, 132, 0.5);
+}
+
+.btn-primary-blast:hover {
+  background: linear-gradient(135deg, #FF7B96 0%, #D02B56 100%);
+  box-shadow: 0 10px 40px rgba(255, 101, 132, 0.7);
+}
+
+.click-everywhere-hint {
+  font-size: 0.78rem;
+  letter-spacing: 0.15em;
+  color: var(--gold-accent);
+  text-transform: uppercase;
+  font-weight: 500;
+  opacity: 0.85;
+}
+
+/* ==========================================================================
+   2D WATERFALL OF NAMES BACKGROUND (Smooth Compositor Stream, 0 Lag)
+   ========================================================================== */
+.waterfall-bg-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  width: 100dvw;
+  height: 100dvh;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-around;
+  padding: 0 1rem;
+  opacity: 0.32;
+  /* Radial mask so the letter text in foreground is 100% readable */
+  mask-image: radial-gradient(circle at 50% 45%, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.85) 60%, #000 100%);
+  -webkit-mask-image: radial-gradient(circle at 50% 45%, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.85) 60%, #000 100%);
+}
+
+.bg-waterfall-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2.2rem;
+  will-change: transform;
+  animation: bgWaterfallFall linear infinite;
+  user-select: none;
+}
+
+@keyframes bgWaterfallFall {
+  0% {
+    transform: translateY(-50%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+/* Staggered durations for natural organic flow */
+.bg-waterfall-col:nth-child(1) { animation-duration: 45s; }
+.bg-waterfall-col:nth-child(2) { animation-duration: 62s; }
+.bg-waterfall-col:nth-child(3) { animation-duration: 52s; }
+.bg-waterfall-col:nth-child(4) { animation-duration: 68s; }
+.bg-waterfall-col:nth-child(5) { animation-duration: 56s; }
+
+.bg-name-item {
+  font-family: var(--font-serif-body);
+  font-style: italic;
+  font-size: clamp(1.15rem, 2.2vw, 1.55rem);
+  color: #FFB8CE;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  text-shadow: 0 0 12px rgba(255, 101, 132, 0.75), 0 0 25px rgba(255, 101, 132, 0.35);
+}
+
+/* ==========================================================================
+   Responsive Adaptations
+   ========================================================================== */
+@media (max-width: 640px) {
+  .waterfall-bg-layer {
+    padding: 0 0.5rem;
+    opacity: 0.38;
+  }
+
+  .bg-waterfall-col:nth-child(n+4) {
+    display: none;
+  }
+
+  .bg-name-item {
+    font-size: 1.15rem;
+  }
+
+  .sound-dock {
+    top: 1rem;
+    right: 1rem;
+  }
+
+  .sound-pill {
+    padding: 0.45rem 0.85rem;
+    font-size: 0.78rem;
+  }
+
+  .stage-container {
+    padding-top: 4.5rem;
+    padding-bottom: 3.5rem;
+  }
+
+  .stage-main-title {
+    font-size: 2.2rem;
+  }
+
+  .decor-quote-mark {
+    left: -0.5rem;
+    top: -2rem;
+    font-size: 5rem;
+  }
+
+  .btn-action-pill {
+    width: 100%;
+    justify-content: center;
+  }
+}
