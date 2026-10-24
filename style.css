@@ -256,16 +256,20 @@ body.locked-curtain {
   z-index: 2;
   width: 100%;
   max-width: 920px;
+  min-height: 100vh;
+  min-height: 100dvh;
   margin: 0 auto;
-  padding: clamp(3rem, 7vw, 5rem) clamp(1.5rem, 5vw, 3rem);
+  padding: clamp(1.25rem, 3vw, 2.5rem) clamp(1.5rem, 5vw, 2.5rem) clamp(2rem, 4vw, 3rem);
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   text-align: center;
 }
 
 .stage-header {
-  margin-bottom: 2.5rem;
+  width: 100%;
+  margin-bottom: 1.5rem;
 }
 
 .edition-badge {
@@ -278,6 +282,14 @@ body.locked-curtain {
   margin-bottom: 1.25rem;
   border-bottom: 1px solid rgba(229, 196, 120, 0.35);
   padding-bottom: 0.35rem;
+}
+
+.bottom-stage-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: auto;
 }
 
 .stage-main-title {
@@ -305,16 +317,18 @@ body.locked-curtain {
 .direct-wish-body {
   position: relative;
   width: 100%;
-  margin-bottom: 3.5rem;
-  text-align: left;
+  max-width: 760px;
+  margin: 0 auto 1.5rem;
+  text-align: center;
 }
 
 .decor-quote-mark {
   position: absolute;
-  top: -2.5rem;
-  left: -2rem;
+  top: -3.2rem;
+  left: 50%;
+  transform: translateX(-50%);
   font-family: var(--font-serif-title);
-  font-size: 8rem;
+  font-size: 7.5rem;
   color: rgba(255, 101, 132, 0.12);
   line-height: 1;
   pointer-events: none;
@@ -370,11 +384,12 @@ body.locked-curtain {
 }
 
 .wish-signature {
-  margin-top: 2.5rem;
-  padding-top: 1.75rem;
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
   border-top: 1px solid rgba(255, 101, 132, 0.25);
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 0.4rem;
 }
 
